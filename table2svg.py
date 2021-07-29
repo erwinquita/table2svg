@@ -104,7 +104,7 @@ def render(csv_path, svg_path,
                              - sum(column_widths))
     table_height = line_width * (rows + 1) + row_height * rows + _MARGIN * 2
 
-    _info(f'{rows} {cols} {table_width} {table_height} {column_widths}')
+    _info('Rendering SVG')
 
     _out(f'<svg viewBox="0 0 {table_width} {table_height}" '
          f'width="{table_width}" height="{table_height}" '

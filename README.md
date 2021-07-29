@@ -22,7 +22,7 @@ Smart Box,Back-end,Golang
 Smart Box,Data Persistent Service,"Golang, MySQL"
 ```
 
-The following command generates the default output:
+The following command generates the default [SVG image](examples/1.svg):
 
 ```shell
 ./table2svg.py examples/example.csv
@@ -37,6 +37,8 @@ You can adjust the table style with the command-line options like
 ./table2svg.py examples/example.csv --header_row --first_column --column_widths 200 200 400 --row_height 60 --font Serif --font_size 24 --borders horizontal
 ```
 
+Here is the generated [SVG image](examples/2.svg):
+
 ![](examples/2.svg)
 
 You can also render a colorful SVG table, with the options like
@@ -45,5 +47,7 @@ You can also render a colorful SVG table, with the options like
 ```shell
 ./table2svg.py examples/example.csv --background_color '#cef' --line_width 5 --line_color '#9cf' --font_color '#339'
 ```
+
+Here is the generated [SVG image](examples/3.svg):
 
 ![](examples/3.svg)
