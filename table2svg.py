@@ -24,10 +24,13 @@ _MIN_LINE_WIDTH = 1
 _MAX_LINE_WIDTH = 10
 _DEFAULT_LINE_COLOR = '#000000'
 _DEFAULT_FONT = 'sans-serif'
-_DEFAULT_FONT_SIZE = 24
+_DEFAULT_FONT_SIZE = 20
+_MIN_FONT_SIZE = 1
+_MAX_FONT_SIZE = 199
 _DEFAULT_FONT_COLOR = '#000000'
 _DEFAULT_BACKGROUND_COLOR = '#ffffff'
 _MARGIN = 30
+_PADDING = 5
 
 
 class _TextAlign(Enum):
@@ -64,6 +67,7 @@ def render(csv_path, svg_path,
            background_color=_DEFAULT_BACKGROUND_COLOR, borders=_Borders.ALL):
     row_height = _clamp(row_height, _MIN_ROW_HEIGHT, _MAX_ROW_HEIGHT)
     line_width = _clamp(line_width, _MIN_LINE_WIDTH, _MAX_LINE_WIDTH)
+    font_size = _clamp(font_size, _MIN_FONT_SIZE, _MAX_FONT_SIZE)
     if column_widths:
         for i, width in enumerate(column_widths):
             column_widths[i] = _clamp(width,
@@ -151,6 +155,32 @@ def render(csv_path, svg_path,
              f'stroke="{line_color}" stroke-width="{line_width}" '
              'stroke-linecap="square"/>')
 
+    for i, row in enumerate(data):
+        for j, text in enumerate(row):
+            left = _MARGIN + sum(column_widths[:j]) + (j + 1) * line_width
+            width = column_widths[j]
+            top = _MARGIN + i * (line_width + row_height) + line_width
+            height = row_height
+            y = top + height // 2
+            if text_align == _TextAlign.LEFT:
+                x = left + _PADDING
+                anchor = 'start'
+            elif text_align == _TextAlign.CENTER:
+                x = left + width // 2
+                anchor = 'middle'
+            elif text_align == _TextAlign.RIGHT:
+                x = left + width - _PADDING
+                anchor = 'end'
+            if (i == 0 and header_row) or (j == 0 and first_column):
+                font_weight = "bold"
+            else:
+                font_weight = "normal"
+            _out(f'<text alignment-baseline="middle" text-anchor="{anchor}" '
+                 f'x="{x}" y="{y}" '
+                 f'fill="{font_color}" font-family="{font}" '
+                 f'font-size="{font_size}px" font-weight="{font_weight}">'
+                 f'{text}</text>')
+
     _out('</svg>')
 
 
@@ -170,10 +200,10 @@ def main():
         help='Turn on the verbose mode.')
     parser.add_argument(
         '-r', '--header_row', action='store_true',
-        help='The table has a row heading.')
+        help='Highlight the header row.')
     parser.add_argument(
         '-c', '--first_column', action='store_true',
-        help='The table has a column heading.')
+        help='Highlight the first column.')
     parser.add_argument(
         '--row_height', type=int, default=_DEFAULT_ROW_HEIGHT,
         help='The height of the rows.')
