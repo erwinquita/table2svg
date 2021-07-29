@@ -81,7 +81,7 @@ def render(csv_path, svg_path,
 
     _info(f'Loading {csv_path}')
     data = []
-    with open(csv_path, 'r', encoding='utf-8') as csvfile:
+    with open(csv_path, 'r', encoding='utf-8-sig') as csvfile:
         data_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in data_reader:
             _info('\t'.join(row))
@@ -161,7 +161,7 @@ def render(csv_path, svg_path,
             width = column_widths[j]
             top = _MARGIN + i * (line_width + row_height) + line_width
             height = row_height
-            y = top + height // 2
+            y = top + height // 2 - font_size // 2
             if text_align == _TextAlign.LEFT:
                 x = left + _PADDING
                 anchor = 'start'
@@ -175,7 +175,7 @@ def render(csv_path, svg_path,
                 font_weight = "bold"
             else:
                 font_weight = "normal"
-            _out(f'<text alignment-baseline="middle" text-anchor="{anchor}" '
+            _out(f'<text dominant-baseline="hanging" text-anchor="{anchor}" '
                  f'x="{x}" y="{y}" '
                  f'fill="{font_color}" font-family="{font}" '
                  f'font-size="{font_size}px" font-weight="{font_weight}">'
