@@ -216,10 +216,10 @@ def main():
              'all the columns will share an average width.')
     parser.add_argument(
         '--line_width', type=int, default=_DEFAULT_LINE_WIDTH,
-        help='The width of the table lines.')
+        help='The width of the border lines.')
     parser.add_argument(
         '--line_color', type=str, default=_DEFAULT_LINE_COLOR,
-        help='The color of the table lines.')
+        help='The color of the border lines.')
     parser.add_argument(
         '--font', type=str, default=_DEFAULT_FONT,
         help='The text font.')
@@ -253,7 +253,7 @@ def main():
             _Borders.NONE.value,
         ],
         default=_Borders.ALL.value,
-        help='How the draw the borders.')
+        help='How to draw the table borders.')
     args = parser.parse_args()
     global _verbose
     _verbose = args.verbose
