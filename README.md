@@ -19,7 +19,8 @@ Product,Component,Programming Language
 Smart Box,Mobile APP,Swift
 Smart Box,Front-end,JavaScript
 Smart Box,Back-end,Golang
-Smart Box,Data Persistent Service,"Golang, MySQL"
+Smart Box,Persistent Service <Data>,"Golang, MySQL"
+Smart Box,Persistent Service <Log>,Golang
 ```
 
 The following command generates the default [SVG image](examples/1.svg):
