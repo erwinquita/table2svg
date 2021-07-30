@@ -6,6 +6,7 @@
 from enum import Enum
 import csv
 import argparse
+import html
 import sys
 
 
@@ -175,6 +176,7 @@ def render(csv_path, svg_path,
                 font_weight = "bold"
             else:
                 font_weight = "normal"
+            text = html.escape(text)
             _out(f'<text dominant-baseline="hanging" text-anchor="{anchor}" '
                  f'x="{x}" y="{y}" '
                  f'fill="{font_color}" font-family="{font}" '
